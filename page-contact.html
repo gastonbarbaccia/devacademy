@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +19,7 @@
 	<!-- Favicon -->
 	<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
 	<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" />
-
+	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -26,6 +27,23 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
+<script>
+	$(document).ready(function () {
+		$("#btn-enviar").click(function () {
+			$.post("enviar.php", $("#formulario").serialize(), function (res) {
+				$("#formulario").fadeOut("slow");
+				if (res == 1) {
+					$("#success").delay(500).fadeIn(500);
+				} else {
+					$("#error").delay(500).fadeIn(500);
+				}
+			});
+
+		});
+	});
+
+</script>
 
 <body>
 	<div class="wrapper">
@@ -110,45 +128,56 @@
 			<div class="container contact-form">
 				<div class="row">
 					<div class="col-lg-6 form_grid">
-						<h4 class="mb5">Enviar mensaje</h4>
-						<p>Si tiene algun inconveniente nos puede contactar completando el siguiente formulario.</p>
-						<form class="contact_form" id="contact_form" name="contact_form" action="#" method="post"
+						<h4 class="mb5">Formulario de contacto</h4>
+						<br>
+						<form class="contact_form" id="formulario" name="formulario" method="post"
 							novalidate="novalidate">
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label for="exampleInputName">Nombre</label>
-										<input id="form_name" name="form_name" class="form-control" required="required"
+										<input id="nombre" name="nombre" class="form-control" required="required"
 											type="text">
 									</div>
 								</div>
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label for="exampleInputEmail">Email</label>
-										<input id="form_email" name="form_email" class="form-control required email"
+										<input id="email" name="email" class="form-control required email"
 											required="required" type="email">
 									</div>
 								</div>
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label for="exampleInputSubject">Asunto</label>
-										<input id="form_subject" name="form_subject" class="form-control required"
+										<input id="asunto" name="asunto" class="form-control required"
 											required="required" type="text">
 									</div>
 								</div>
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Mensaje</label>
-										<textarea id="form_message" name="form_message" class="form-control required"
-											rows="5" required="required"></textarea>
+										<textarea id="mensaje" name="mensaje" class="form-control required" rows="5"
+											required="required"></textarea>
 									</div>
 									<div class="form-group ui_kit_button mb0">
-										<button type="button"
-											class="btn dbxshad btn-lg btn-thm circle white">Enviar</button>
+										<button type="button" class="btn dbxshad btn-lg btn-thm circle white"
+											name="btn-enviar" id="btn-enviar">Enviar</button>
 									</div>
 								</div>
 							</div>
 						</form>
+						<div class="form-group ui_kit_button mb0" id="success" style="display:none"
+							style="text-align: center;">
+							<span>Sus datos han sido recibidos con éxito.</span>
+						</div>
+						<div class="form-group ui_kit_button mb0" id="error" style="display:none"
+							style="text-align: center;">
+							<span>Se ha producido un error durante el envío de datos.
+								<br>
+								Por favor intente más tarde.</span>
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -192,6 +221,7 @@
 		<a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 	</div>
 	<!-- Wrapper End -->
+
 	<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 	<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
 	<script type="text/javascript" src="js/jquery-migrate-3.0.0.min.js"></script>
@@ -217,4 +247,5 @@
 	<!-- Custom script for all pages -->
 	<script type="text/javascript" src="js/script.js"></script>
 </body>
+
 </html>
