@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +18,7 @@
 	<!-- Favicon -->
 	<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
 	<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" />
-	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -30,6 +29,50 @@
 
 <script>
 
+	function validarForm() {
+
+		if ($("#nombre").val() == "") {
+			alert("El campo nombre no puede estar vacío.");
+			$("#nombre").focus();
+			return false;
+		}
+		if ($("#email").val() == "") {
+			alert("El campo email no puede estar vacío.");
+			$("#email").focus();
+			return false;
+		}
+		if ($("#asunto").val() == "") {
+			alert("El campo asunto no puede estar vacío.");
+			$("#asunto").focus();
+			return false;
+		}
+		if ($("#mensaje").val() == "") {
+			alert("El campo mensaje no puede estar vacío.");
+			$("#mensaje").focus();
+			return false;
+		}
+
+		return true; 
+	}
+
+	$(document).ready(function () {
+		$("#btn-enviar").click(function () {
+			if (validarForm()) {
+				$.post("enviar.php", $("#formulario").serialize(), function (res) {
+					$("#formulario").fadeOut("slow");
+					if (res == 1) {
+						$("#success").delay(500).fadeIn('slow');
+					} else {
+						$("#error").delay(500).fadeIn('slow');
+					}
+				});
+				document.getElementById("footer-area").style.position = "fixed";
+				document.getElementById("footer-area").style.bottom = 0;
+				document.getElementById("footer-area").style.width = "100%";
+			}
+
+		});
+	});
 
 </script>
 
@@ -157,46 +200,62 @@
 								</div>
 							</div>
 						</form>
+						<div class="form-group ui_kit_button mb0" id="success" style="display:none"
+							style="text-align: center;">
+							<span class="btn btn-success" style="width: 100%;text-align: center;">Sus datos han sido
+								enviados con éxito!</span>
+						</div>
+						<div class="form-group ui_kit_button mb0" id="error" style="display:none"
+							style="text-align: center;">
+							<span class="btn btn-danger" style="width: 100%;text-align: center;">Se ha producido un
+								error durante el envío de datos.
+								<br>
+								Por favor intente más tarde.
+							</span>
+						</div>
+
 					</div>
 				</div>
 			</div>
 		</section>
 
 		<!-- Our Footer Middle Area -->
-		<section class="footer_middle_area p0">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-4 col-md-3 col-lg-3 col-xl-2 pb15 pt15">
-						<div class="logo-widget home1">
-							<img class="img-fluid" src="images/header-logo.png" alt="header-logo.png">
-							<span>DevAcademy</span>
+		<div id="footer-area">
+			<section class="footer_middle_area p0">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-4 col-md-3 col-lg-3 col-xl-2 pb15 pt15">
+							<div class="logo-widget home1">
+								<img class="img-fluid" src="images/header-logo.png" alt="header-logo.png">
+								<span>DevAcademy</span>
+							</div>
 						</div>
-					</div>
-					<div class="col-sm-12 col-md-4 col-lg-3 col-xl-4 pb15 pt15">
-						<div class="footer_social_widget mt15">
-							<ul>
-								<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-							</ul>
+						<div class="col-sm-12 col-md-4 col-lg-3 col-xl-4 pb15 pt15">
+							<div class="footer_social_widget mt15">
+								<ul>
+									<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+									<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+									<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</section>
+			</section>
 
-		<!-- Our Footer Bottom Area -->
-		<section class="footer_bottom_area pt25 pb25">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-6 offset-lg-3">
-						<div class="copyright-widget text-center">
-							<p>Copyright DevAcademy © 2020. All Rights Reserved.</p>
+			<!-- Our Footer Bottom Area -->
+			<section class="footer_bottom_area pt25 pb25">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 offset-lg-3">
+							<div class="copyright-widget text-center">
+								<p>Copyright DevAcademy © 2020. All Rights Reserved.</p>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</section>
+			</section>
+		</div>
 		<a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 	</div>
 	<!-- Wrapper End -->
