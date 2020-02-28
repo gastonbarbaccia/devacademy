@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,27 +33,39 @@
 	function validarForm() {
 
 		if ($("#nombre").val() == "") {
-			alert("El campo nombre no puede estar vacío.");
+			$("#nombre_empty").delay(500).fadeIn('slow');
+			setTimeout(function () {
+				$('#nombre_empty').fadeOut('slow');
+			}, 5000);
 			$("#nombre").focus();
 			return false;
 		}
 		if ($("#email").val() == "") {
-			alert("El campo email no puede estar vacío.");
+			$("#email_empty").delay(500).fadeIn('slow');
+			setTimeout(function () {
+				$('#email_empty').fadeOut('slow');
+			}, 5000);
 			$("#email").focus();
 			return false;
 		}
 		if ($("#asunto").val() == "") {
-			alert("El campo asunto no puede estar vacío.");
+			$("#asunto_empty").delay(500).fadeIn('slow');
+			setTimeout(function () {
+				$('#asunto_empty').fadeOut('slow');
+			}, 5000);
 			$("#asunto").focus();
 			return false;
 		}
 		if ($("#mensaje").val() == "") {
-			alert("El campo mensaje no puede estar vacío.");
+			$("#mensaje_empty").delay(500).fadeIn('slow');
+			setTimeout(function () {
+				$('#mensaje_empty').fadeOut('slow');
+			}, 5000);
 			$("#mensaje").focus();
 			return false;
 		}
 
-		return true; 
+		return true;
 	}
 
 	$(document).ready(function () {
@@ -171,6 +184,12 @@
 										<label for="exampleInputName">Nombre</label>
 										<input id="nombre" name="nombre" class="form-control" required="required"
 											type="text">
+										<div class="form-group ui_kit_button mb0" id="nombre_empty" style="display:none"
+											style="text-align: center;">
+											<p style="color: red;">
+												<b>El campo nombre no puede estar vacío</b>
+											</p>
+										</div>
 									</div>
 								</div>
 								<div class="col-sm-12">
@@ -178,6 +197,12 @@
 										<label for="exampleInputEmail">Email</label>
 										<input id="email" name="email" class="form-control required email"
 											required="required" type="email">
+										<div class="form-group ui_kit_button mb0" id="email_empty" style="display:none"
+											style="text-align: center;">
+											<p style="color: red;">
+												<b>El campo email no puede estar vacío</b>
+											</p>
+										</div>
 									</div>
 								</div>
 								<div class="col-sm-12">
@@ -185,6 +210,12 @@
 										<label for="exampleInputSubject">Asunto</label>
 										<input id="asunto" name="asunto" class="form-control required"
 											required="required" type="text">
+										<div class="form-group ui_kit_button mb0" id="asunto_empty" style="display:none"
+											style="text-align: center;">
+											<p style="color: red;">
+												<b>El campo asunto no puede estar vacío</b>
+											</p>
+										</div>
 									</div>
 								</div>
 								<div class="col-sm-12">
@@ -192,6 +223,12 @@
 										<label for="exampleInputEmail1">Mensaje</label>
 										<textarea id="mensaje" name="mensaje" class="form-control required" rows="5"
 											required="required"></textarea>
+										<div class="form-group ui_kit_button mb0" id="mensaje_empty"
+											style="display:none" style="text-align: center;">
+											<p style="color: red;">
+												<b>El campo mensaje no puede estar vacío</b>
+											</p>
+										</div>
 									</div>
 									<div class="form-group ui_kit_button mb0">
 										<button type="button" class="btn dbxshad btn-lg btn-thm circle white"
