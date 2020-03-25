@@ -19,17 +19,83 @@
 	<!-- Favicon -->
 	<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
 	<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" />
-	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161741282-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-161741282-1');
+    </script>
+
 </head>
 
 <script>
 
+	function validarForm() {
+
+		if ($("#nombre").val() == "") {
+			$("#nombre_empty").delay(500).fadeIn('slow');
+			setTimeout(function () {
+				$('#nombre_empty').fadeOut('slow');
+			}, 5000);
+			$("#nombre").focus();
+			return false;
+		}
+		if ($("#email").val() == "") {
+			$("#email_empty").delay(500).fadeIn('slow');
+			setTimeout(function () {
+				$('#email_empty').fadeOut('slow');
+			}, 5000);
+			$("#email").focus();
+			return false;
+		}
+		if ($("#asunto").val() == "") {
+			$("#asunto_empty").delay(500).fadeIn('slow');
+			setTimeout(function () {
+				$('#asunto_empty').fadeOut('slow');
+			}, 5000);
+			$("#asunto").focus();
+			return false;
+		}
+		if ($("#mensaje").val() == "") {
+			$("#mensaje_empty").delay(500).fadeIn('slow');
+			setTimeout(function () {
+				$('#mensaje_empty').fadeOut('slow');
+			}, 5000);
+			$("#mensaje").focus();
+			return false;
+		}
+
+		return true;
+	}
+
+	$(document).ready(function () {
+		$("#btn-enviar").click(function () {
+			if (validarForm()) {
+				$.post("enviar.php", $("#formulario").serialize(), function (res) {
+					$("#formulario").fadeOut("slow");
+					if (res == 1) {
+						$("#success").delay(500).fadeIn('slow');
+					} else {
+						$("#error").delay(500).fadeIn('slow');
+					}
+				});
+				document.getElementById("footer-area").style.position = "fixed";
+				document.getElementById("footer-area").style.bottom = 0;
+				document.getElementById("footer-area").style.width = "100%";
+			}
+
+		});
+	});
 
 </script>
 
@@ -55,12 +121,15 @@
 					<ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
 						<li class="list-inline-item" style="padding-top: 1%;padding-right: 2%;">
 							<div class="logo-widget">
-								<img class="img-fluid" src="images/header-logo.png" alt="header-logo.png">
-								<span>DevAcademy</span>
+								<a href="index.html">
+									<img class="img-fluid" src="images/header-logo.png" alt="header-logo.png">
+									<span>DevAcademy</span>
+								</a>
 							</div>
 						</li>
 						<li><a href="index.html">Inicio</a></li>
 						<li><a href="page-course.html">Cursos</a></li>
+						<li><a href="page-contact.html">Contacto</a></li>
 					</ul>
 
 				</nav>
@@ -105,6 +174,7 @@
 				<ul>
 					<li><a href="index.html">Inicio</a></li>
 					<li><a href="page-course.html">Cursos</a></li>
+					<li><a href="page-contact.html">Contacto</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -124,6 +194,12 @@
 										<label for="exampleInputName">Nombre</label>
 										<input id="nombre" name="nombre" class="form-control" required="required"
 											type="text">
+										<div class="form-group ui_kit_button mb0" id="nombre_empty" style="display:none"
+											style="text-align: center;">
+											<p style="color: red;">
+												<b>El campo nombre no puede estar vacío</b>
+											</p>
+										</div>
 									</div>
 								</div>
 								<div class="col-sm-12">
@@ -131,6 +207,12 @@
 										<label for="exampleInputEmail">Email</label>
 										<input id="email" name="email" class="form-control required email"
 											required="required" type="email">
+										<div class="form-group ui_kit_button mb0" id="email_empty" style="display:none"
+											style="text-align: center;">
+											<p style="color: red;">
+												<b>El campo email no puede estar vacío</b>
+											</p>
+										</div>
 									</div>
 								</div>
 								<div class="col-sm-12">
@@ -138,6 +220,12 @@
 										<label for="exampleInputSubject">Asunto</label>
 										<input id="asunto" name="asunto" class="form-control required"
 											required="required" type="text">
+										<div class="form-group ui_kit_button mb0" id="asunto_empty" style="display:none"
+											style="text-align: center;">
+											<p style="color: red;">
+												<b>El campo asunto no puede estar vacío</b>
+											</p>
+										</div>
 									</div>
 								</div>
 								<div class="col-sm-12">
@@ -145,6 +233,12 @@
 										<label for="exampleInputEmail1">Mensaje</label>
 										<textarea id="mensaje" name="mensaje" class="form-control required" rows="5"
 											required="required"></textarea>
+										<div class="form-group ui_kit_button mb0" id="mensaje_empty"
+											style="display:none" style="text-align: center;">
+											<p style="color: red;">
+												<b>El campo mensaje no puede estar vacío</b>
+											</p>
+										</div>
 									</div>
 									<div class="form-group ui_kit_button mb0">
 										<button type="button" class="btn dbxshad btn-lg btn-thm circle white"
@@ -153,46 +247,62 @@
 								</div>
 							</div>
 						</form>
+						<div class="form-group ui_kit_button mb0" id="success" style="display:none"
+							style="text-align: center;">
+							<span class="btn btn-success" style="width: 100%;text-align: center;">Sus datos han sido
+								enviados con éxito!</span>
+						</div>
+						<div class="form-group ui_kit_button mb0" id="error" style="display:none"
+							style="text-align: center;">
+							<span class="btn btn-danger" style="width: 100%;text-align: center;">Se ha producido un
+								error durante el envío de datos.
+								<br>
+								Por favor intente más tarde.
+							</span>
+						</div>
+
 					</div>
 				</div>
 			</div>
 		</section>
 
 		<!-- Our Footer Middle Area -->
-		<section class="footer_middle_area p0">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-4 col-md-3 col-lg-3 col-xl-2 pb15 pt15">
-						<div class="logo-widget home1">
-							<img class="img-fluid" src="images/header-logo.png" alt="header-logo.png">
-							<span>DevAcademy</span>
+		<div id="footer-area">
+			<section class="footer_middle_area p0">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-4 col-md-3 col-lg-3 col-xl-2 pb15 pt15">
+							<div class="logo-widget home1">
+								<img class="img-fluid" src="images/header-logo.png" alt="header-logo.png">
+								<span>DevAcademy</span>
+							</div>
 						</div>
-					</div>
-					<div class="col-sm-12 col-md-4 col-lg-3 col-xl-4 pb15 pt15">
-						<div class="footer_social_widget mt15">
-							<ul>
-								<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-							</ul>
+						<div class="col-sm-12 col-md-4 col-lg-3 col-xl-4 pb15 pt15">
+							<div class="footer_social_widget mt15">
+								<ul>
+									<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+									<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+									<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</section>
+			</section>
 
-		<!-- Our Footer Bottom Area -->
-		<section class="footer_bottom_area pt25 pb25">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-6 offset-lg-3">
-						<div class="copyright-widget text-center">
-							<p>Copyright DevAcademy © 2020. All Rights Reserved.</p>
+			<!-- Our Footer Bottom Area -->
+			<section class="footer_bottom_area pt25 pb25">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 offset-lg-3">
+							<div class="copyright-widget text-center">
+								<p>Copyright DevAcademy © 2020. All Rights Reserved.</p>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</section>
+			</section>
+		</div>
 		<a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
 	</div>
 	<!-- Wrapper End -->
