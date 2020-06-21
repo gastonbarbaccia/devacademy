@@ -4377,6 +4377,12 @@ header.header-nav.menu_style_home_seven .ace-responsive-menu>li.last {
   width: 450px;
 }
 
+@media (max-width:400px) {
+  .courses_list_content .top_courses.list .thumb {
+    width:100%
+  }
+}
+
 .courses_list_content .top_courses.list .details .tc_footer {
   border: none;
 }
