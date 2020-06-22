@@ -7,7 +7,7 @@ $subject = $_POST['asunto'];
 $message = $_POST['mensaje'];
 $headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/plain;charset=UTF-8" . "\r\n";
-$headers .= "From: DevAcademy < contacto@devacademy.com >" . "\r\n";
+$headers .= "From: DevcodeAcademy < contacto@devcodeacademy.com >" . "\r\n";
 
  
 mail($to,$subject, $message, $headers);
