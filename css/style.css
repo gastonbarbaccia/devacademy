@@ -4372,9 +4372,9 @@ header.header-nav.menu_style_home_seven .ace-responsive-menu>li.last {
 }
 
 .courses_list_content .top_courses.list .thumb {
-  border-radius: 5px;
+  /*border-radius: 5px;
   overflow: hidden;
-  width: 450px;
+  width: 450px;*/
 }
 
 @media (max-width:400px) {
